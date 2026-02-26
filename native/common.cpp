@@ -342,6 +342,14 @@ HL_PRIM void HL_NAME(request_encrypted_app_ticket)(vbyte* data, int size, vclosu
 	EncryptedAppTicketRequest *request = new EncryptedAppTicketRequest(cb, data, size);
 }
 
+vdynamic *CallbackHandler::EncodeMicroTxnAuthorization(MicroTxnAuthorizationResponse_t *d) {
+	HLValue v;
+	v.Set("appId", d->m_unAppID);
+	v.Set("orderId", d->m_ulOrderID);
+	v.Set("authorized", d->m_bAuthorized);
+	return v.value;
+}
+
 DEFINE_PRIM(_UID, get_steam_id, _NO_ARG);
 DEFINE_PRIM(_BOOL, restart_app_if_necessary, _I32);
 DEFINE_PRIM(_BOOL, is_overlay_enabled, _NO_ARG);
